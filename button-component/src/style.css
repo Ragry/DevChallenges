@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Symbols+Rounded");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color-default: #E0E0E0;
+    --color-default-hover: #AEAEAE;
+    --color-default-shadow: #E0E0E0;
+    --color-primary: #2962FF;
+    --color-primary-hover: #0039CB;
+    --color-primary-shadow: #2962FF;
+    --color-secondary: #455A64;
+    --color-secondary-hover: #1C313A;
+    --color-secondary-shadow: #455A64;
+    --color-danger: #D32F2F;
+    --color-danger-hover: #9A0007;
+    --color-danger-shadow: #D32F2F;
+
+    --text-color-default: #3F3F3F;
+    --text-color-primary: #2962FF;
+    --text-color-secondary: #455A64;
+    --text-color-danger: #D32F2F;
+    --text-color-text: #3D5AFE;
+    --text-color-inverted: white;
+    --text-color-disabled: #9E9E9E;
+}
+
+#app {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+}
