@@ -1,11 +1,19 @@
 <template>
-    <span class="material-symbols-rounded text-center font-medium text-sm/normal"
-        :class="{
-            'text-[var(--text-color-default)]': isColorDefault,
-            'text-[var(--text-color-text)]': isColorText,
-            'text-[var(--text-color-inverted)]': isColorInverted,
-            'text-[var(--text-color-disabled)]': isDisabled }"
-    >
+    <span class="material-symbols-rounded text-center font-medium text-sm/normal" :class="{
+        'text-[var(--text-color-default)]': colorDefault,
+        'text-[var(--text-color-primary)]': colorPrimary,
+        'text-[var(--text-color-secondary)]': colorSecondary,
+        'text-[var(--text-color-danger)]': colorDanger,
+        'text-white': colorWhite,
+        'text-black': colorBlack,
+        'text-[var(--text-color-disabled)]': disabled,
+        'group-hover:text-[var(--text-color-default)]': hoverColorDefault,
+        'group-hover:text-white': hoverColorWhite,
+        'group-hover:text-black': hoverColorBlack,
+        'group-focus:text-[var(--text-color-default)]': hoverColorDefault,
+        'group-focus:text-white': hoverColorWhite,
+        'group-focus:text-black': hoverColorBlack
+    }">
         {{ iconName }}
     </span>
 </template>
@@ -23,9 +31,14 @@ const props = defineProps({
 });
 
 const {
-    isColorDefault,
-    isColorText,
-    isColorInverted,
-    isDisabled
+    colorDefault,
+    colorPrimary,
+    colorSecondary,
+    colorDanger,
+    colorWhite,
+    colorBlack,
+    hoverColorDefault,
+    hoverColorWhite,
+    hoverColorBlack
 } = useButtonTextColor(props.color, props.disabled, props.variant);
 </script>

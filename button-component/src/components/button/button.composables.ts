@@ -1,36 +1,66 @@
 import { Ref, ref } from "vue";
-import { ButtonColor, ButtonVariant } from "./button.types";
+import { ButtonColor, ButtonSize, ButtonVariant } from "./button.types";
 
-export function useButtonTextColor(color: ButtonColor | undefined, disabled: boolean, variant: ButtonVariant | undefined) {
+export function useButtonTextColor(
+    color: ButtonColor | undefined,
+    disabled: boolean,
+    variant: ButtonVariant | undefined
+) {
     const variantDefault = !variant;
     const variantOutline = variant === "outline";
-    const variantText = variant === "text";
     const propColorPrimary = color === "primary";
     const propColorSecondary = color === "secondary";
     const propColorDanger = color === "danger";
     const useParticularColor = propColorPrimary || propColorSecondary || propColorDanger;
 
-    const colorDefault: Ref<boolean> = ref((variantDefault || variantOutline) && !disabled && !useParticularColor);
-    const colorPrimary: Ref<boolean> = ref(variantOutline && !disabled && propColorPrimary);
-    const colorSecondary: Ref<boolean> = ref(variantOutline && !disabled && propColorSecondary);
-    const colorDanger: Ref<boolean> = ref(variantOutline && !disabled && propColorDanger);
-
-    const colorText: Ref<boolean> = ref(variantText && !disabled && !useParticularColor);
-    const colorInverted: Ref<boolean> = ref(variantDefault && !disabled && useParticularColor);
-    const isDisabled: Ref<boolean> = ref(disabled === true);
-
-    return {
-        colorDefault,
-        colorPrimary,
-        colorSecondary,
-        colorDanger,
-        isColorText: colorText,
-        isColorInverted: colorInverted,
-        isDisabled
+    if (variantDefault) {
+        return {
+            colorDefault: ref(!disabled && !useParticularColor),
+            colorPrimary: ref(!disabled && propColorPrimary),
+            colorSecondary: ref(!disabled && propColorSecondary),
+            colorDanger: ref(!disabled && propColorDanger),
+            colorWhite: ref(!disabled && useParticularColor),
+            colorBlack: ref(false),
+            hoverColorDefault: ref(!disabled && !useParticularColor),
+            hoverColorWhite: ref(!disabled && useParticularColor),
+            hoverColorBlack: ref(false)
+        };
+    }
+    else if (variantOutline) {
+        return {
+            colorDefault: ref(!disabled && !useParticularColor),
+            colorPrimary: ref(propColorPrimary),
+            colorSecondary: ref(propColorSecondary),
+            colorDanger: ref(propColorDanger),
+            colorWhite: ref(false),
+            colorBlack: ref(false),
+            hoverColorDefault: ref(false),
+            hoverColorWhite: ref(!disabled && useParticularColor),
+            hoverColorBlack: ref(!disabled && !useParticularColor)
+        };
+    }
+    else {
+        return {
+            colorDefault: ref(!useParticularColor),
+            colorPrimary: ref(propColorPrimary),
+            colorSecondary: ref(propColorSecondary),
+            colorDanger: ref(propColorDanger),
+            colorWhite: ref(false),
+            colorBlack: ref(false),
+            hoverColorDefault: ref(false),
+            hoverColorWhite: ref(!disabled && useParticularColor),
+            hoverColorBlack: ref(!disabled && !useParticularColor)
+        };
     }
 }
 
-export function useButtonStyles(color: ButtonColor | undefined, disabled: boolean, disableShadow: boolean, variant: ButtonVariant | undefined) {
+export function useButtonStyles(
+    color: ButtonColor | undefined,
+    disabled: boolean,
+    disableShadow: boolean,
+    variant: ButtonVariant | undefined,
+    size: ButtonSize | undefined
+) {
     const variantDefault = !variant;
     const variantOutline = variant === "outline";
     const variantText = variant === "text";
@@ -46,33 +76,22 @@ export function useButtonStyles(color: ButtonColor | undefined, disabled: boolea
 
     const shadow: Ref<boolean> = ref(!disableShadow && !disabled && variantDefault);
 
-    const bgIsWhite: Ref<boolean> = ref(variantText ||
-        (variantOutline && color === "default") ||
-        (variantOutline && !color));
-    const bgColorDefault: Ref<boolean> = ref(colorDefault &&
-        (variantDefault));
-    const bgIsPrimary: Ref<boolean> = ref(colorPrimary &&
-        (variantDefault) &&
-        (!disabled));
-    const bgIsSecondary: Ref<boolean> = ref(colorSecondary &&
-        (variantDefault) &&
-        (!disabled));
-    const bgIsDanger: Ref<boolean> = ref(colorDanger &&
-        (variantDefault) &&
-        (!disabled));
+    const sizeSm: Ref<boolean> = ref(size === "sm");
+    const sizeMd: Ref<boolean> = ref(size === "md" || !size);
+    const sizeLg: Ref<boolean> = ref(size === "lg");
 
-    const hoverColorDefault: Ref<boolean> = ref(colorDefault &&
-        (variantDefault || variantOutline) &&
-        (!disabled));
-    const hoverIsPrimary: Ref<boolean> = ref(colorPrimary &&
-        (variantDefault || variantOutline) &&
-        (!disabled));
-    const hoverIsSecondary: Ref<boolean> = ref(colorSecondary &&
-        (variantDefault || variantOutline) &&
-        (!disabled));
-    const hoverIsDanger: Ref<boolean> = ref(colorDanger &&
-        (variantDefault || variantOutline) &&
-        (!disabled));
+    const bgIsWhite: Ref<boolean> = ref(
+        variantText || (variantOutline && colorDefault) || (variantOutline && !color)
+    );
+    const bgColorDefault: Ref<boolean> = ref(colorDefault && (variantDefault || variantOutline));
+    const bgIsPrimary: Ref<boolean> = ref(colorPrimary && variantDefault && !disabled);
+    const bgIsSecondary: Ref<boolean> = ref(colorSecondary && variantDefault && !disabled);
+    const bgIsDanger: Ref<boolean> = ref(colorDanger && variantDefault && !disabled);
+
+    const hoverColorDefault: Ref<boolean> = ref(colorDefault && !disabled);
+    const hoverIsPrimary: Ref<boolean> = ref(colorPrimary && !disabled);
+    const hoverIsSecondary: Ref<boolean> = ref(colorSecondary && !disabled);
+    const hoverIsDanger: Ref<boolean> = ref(colorDanger && !disabled);
 
     return {
         border,
@@ -80,6 +99,9 @@ export function useButtonStyles(color: ButtonColor | undefined, disabled: boolea
         borderIsSecondary,
         borderIsDanger,
         shadow,
+        sizeSm,
+        sizeMd,
+        sizeLg,
         bgIsWhite,
         bgColorDefault,
         bgIsPrimary,
@@ -89,5 +111,5 @@ export function useButtonStyles(color: ButtonColor | undefined, disabled: boolea
         hoverIsPrimary,
         hoverIsSecondary,
         hoverIsDanger
-    }
+    };
 }
