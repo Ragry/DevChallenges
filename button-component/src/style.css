@@ -11,16 +11,21 @@
 :root {
     --color-default: #E0E0E0;
     --color-default-hover: #AEAEAE;
-    --color-default-shadow: #E0E0E0;
+    --color-default-light: #F2F2F280;
+
     --color-primary: #2962FF;
     --color-primary-hover: #0039CB;
-    --color-primary-shadow: #2962FF;
+    --color-primary-light: #2962FF1A;
+
     --color-secondary: #455A64;
     --color-secondary-hover: #1C313A;
-    --color-secondary-shadow: #455A64;
+    --color-secondary-light: #455A641A;
+
     --color-danger: #D32F2F;
     --color-danger-hover: #9A0007;
-    --color-danger-shadow: #D32F2F;
+    --color-danger-light: #D32F2F1A;
+
+    --shadow-color: #E2E2E2;
 
     --text-color-default: #3F3F3F;
     --text-color-primary: #2962FF;

@@ -72,15 +72,19 @@
 
         <span class="text-[#333] font-['Ubuntu_Mono'] text-xs/normal">&lt;Button disabled /&gt;</span>
         <span class="text-[#333] font-['Ubuntu_Mono'] text-xs/normal">&lt;Button disabled variant="text" /&gt;</span>
-        <span class="text-[#333] font-['Ubuntu_Mono'] text-xs/normal col-span-2">&lt;Button disabled variant="outline" /&gt;</span>
+        <span class="text-[#333] font-['Ubuntu_Mono'] text-xs/normal">&lt;Button disabled variant="outline" /&gt;</span>
+        <span class="text-[#333] font-['Ubuntu_Mono'] text-xs/normal">&lt;Button disabled variant="outline" color="danger" /&gt;</span>
         <div>
             <ButtonComponent caption="Default" disabled />
         </div>
         <div>
             <ButtonComponent caption="Default" disabled variant="text" />
         </div>
-        <div class="col-span-2">
+        <div>
             <ButtonComponent caption="Default" disabled variant="outline" />
+        </div>
+        <div>
+            <ButtonComponent caption="Default" disabled variant="outline" color="danger" />
         </div>
 
         <span class="text-[#333] font-['Ubuntu_Mono'] text-xs/normal">&lt;Button startIcon="face" /&gt;</span>
