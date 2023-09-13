@@ -1,6 +1,7 @@
 import { expect, it, describe, afterEach, vi } from "vitest";
 import { shallowMount, mount, enableAutoUnmount } from "@vue/test-utils";
 import ButtonComponent from "../../components/button/ButtonComponent.vue";
+import ButtonIconComponent from "../../components/button/ButtonIconComponent.vue";
 
 enableAutoUnmount(afterEach);
 
@@ -55,7 +56,7 @@ describe("button", () => {
         expect(wrapper.find("span").text()).toBe("Default");
     });
 
-    it("has attribute disabled and proper classes qwhen prop disabled set", () => {
+    it("has attribute disabled and proper classes when prop disabled set", () => {
         const wrapper = shallowMount(ButtonComponent, {
             props: {
                 disabled: true
@@ -74,7 +75,6 @@ describe("button", () => {
         expect(wrapper.classes()).not.toContain("shadow-[0_2px_3px_0px]");
         expect(wrapper.classes()).not.toContain("shadow-[var(--shadow-color)]");
     });
-
 
     it("has proper classes when prop size set sm", () => {
         const wrapper = shallowMount(ButtonComponent, {
@@ -106,30 +106,58 @@ describe("button", () => {
         expect(wrapper.classes()).toContain("px-[22px]");
     });
 
-    it("applies primary background color with variant=default", () => {
-        const wrapper = shallowMount(ButtonComponent, {
-            propsData: {
-                color: "primary"
-            }
-        });
-        expect(wrapper.classes()).toContain("bg-[var(--color-primary)]");
+    it("has proper classes when prop variant=default", () => {
+        const wrapper = shallowMount(ButtonComponent);
+        expect(wrapper.classes()).toContain("border-transparent");
+        expect(wrapper.classes()).toContain("bg-[var(--color-default)]");
+        expect(wrapper.classes()).toContain("hover:border-[var(--color-default-hover)]");
+        expect(wrapper.classes()).toContain("hover:bg-[var(--color-default-hover)]");
     });
 
-    it("applies secondary background color with variant=default", () => {
+    it("has proper classes when prop variant=outline and color=secondary", () => {
         const wrapper = shallowMount(ButtonComponent, {
             propsData: {
-                color: "secondary"
+                color: "secondary",
+                variant: "outline"
             }
         });
-        expect(wrapper.classes()).toContain("bg-[var(--color-secondary)]");
+        expect(wrapper.classes()).not.toContain("border-transparent");
+        expect(wrapper.classes()).toContain("border-[var(--text-color-secondary)]");
+        expect(wrapper.classes()).toContain("hover:bg-[var(--color-secondary-light)]");
+        expect(wrapper.classes()).toContain("focus:bg-[var(--color-secondary-light)]");
     });
 
-    it("applies danger background color with variant=default", () => {
+    it("has proper classes when prop variant=text and color=danger", () => {
         const wrapper = shallowMount(ButtonComponent, {
             propsData: {
-                color: "danger"
+                color: "danger",
+                variant: "text"
             }
         });
-        expect(wrapper.classes()).toContain("bg-[var(--color-danger)]");
+        expect(wrapper.classes()).toContain("border-transparent");
+        expect(wrapper.classes()).toContain("bg-white");
+        expect(wrapper.classes()).toContain("hover:bg-[var(--color-danger-light)]");
+        expect(wrapper.classes()).toContain("focus:bg-[var(--color-danger-light)]");
+    });
+
+
+    it("has left icon when prop startIcon set", () => {
+        const wrapper = mount(ButtonComponent, {
+            propsData: {
+                color: "danger",
+                startIcon: "face"
+            }
+        });
+        expect(wrapper.findComponent(ButtonIconComponent).text()).toContain("face");
+    });
+
+    it("has right icon when prop endIcon set", () => {
+        const wrapper = mount(ButtonComponent, {
+            propsData: {
+                color: "danger",
+                endIcon: "add_shopping_cart"
+            }
+        });
+        expect(wrapper.findComponent(ButtonIconComponent).text()).toContain("add_shopping_cart");
     });
 });
