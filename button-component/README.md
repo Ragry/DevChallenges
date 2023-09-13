@@ -40,8 +40,10 @@
 ### Built With
 
 - [Vue.js](https://vuejs.org/)
+- [Vite](https://vitejs.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
+- [Vitest](https://vitest.dev/)
 
 ## Features
 
